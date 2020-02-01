@@ -1,0 +1,721 @@
+﻿
+
+@charset "utf-8";
+/*Quita Todos los margenes por defecto que suelen poner los navegadores*/
+*{
+    margin: 0;
+    padding: 0;
+}
+/**/
+body, html {
+    margin: 0;
+    padding: 0;
+    font: 12px sans-serif,Arial, Helvetica;
+    color: black;
+    height: 100%;
+}
+ 
+td {
+    height:9px;
+    padding: 1px 0px 1px 0px;
+
+}
+tr:hover {
+  background-color: rgb(136, 229, 136);
+}
+.contenedor {
+    margin: 1px auto 1px auto;
+    padding: 2px 2px 2px 2px; /* Arriba   Derecha   Abajo  Izquierda */
+    height: 99%;
+    background-color: white;
+    overflow:hidden;
+    resize:both;
+    /*margin-top: 1%;*/
+}
+
+.dataTables tbody tr {
+height: 12px; /* or whatever height you need to make them all consistent */
+}
+.PanelImpresion {
+    margin: 1px auto 1px auto;
+    padding: 1px 1px 1px 1px; /* Arriba   Derecha   Abajo  Izquierda */
+    height: 80%;
+    background-color: white;
+   
+}
+
+.cabecera {
+    margin: 0px auto 0px auto;
+    margin-top: 1%;
+    height: 95px;
+    padding: 1px 2px 2px 2px; /* Arriba   Derecha   Abajo  Izquierda */
+    background-color: white;
+}
+
+.cabeceraConsulta {
+    /*margin: 0px auto 0px auto;*/    
+    padding: 2px 2px 2px 2px; /* Arriba   Derecha   Abajo  Izquierda */
+    top:4px;
+    background-color: white;
+    line-height:1.5;
+    width:100%;
+    height: 42px;
+}
+.cabeceraTitulo{
+    float:right; 
+    top:1px;
+    text-align:right; 
+    padding: 2px 2px 2px 2px; /* Arriba   Derecha   Abajo  Izquierda */
+     color: #094809;
+    width:50%;
+
+}
+
+
+@media screen and (max-width: 5000px) {
+    body {
+        background: url(../imagenes/fondoHMLOGrande.png);
+        background-size: cover;
+    }
+
+    .cabecera {
+        width: 760px;
+    }
+
+    .cabeceraConsulta {
+        width: 760px;
+     
+    }
+
+    .contenedor {
+        width: 760px;
+    }
+
+    .tablaOrdenada {
+        width: 740px;
+    }
+
+    .PanelImpresion {
+        width: 760px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    body {
+        background: url(../imagenes/fondoHMLOMedio.png);
+        background-size: cover;
+    }
+
+    .cabecera {
+        width: 400px;
+    }
+
+    .cabeceraConsulta {
+        width: 400px;
+      }
+
+    .contenedor {
+        width: 400px;
+    }
+
+    .tablaOrdenada {
+        width: 400px;
+    }
+
+    .PanelImpresion {
+        width: 400px;
+    }
+}
+
+
+.botonRojo {
+    border-radius: 45px;
+    background-color: #660000;
+    font-size: 8px;
+    font-weight: bold;
+    color: white;
+    float: right;
+    margin-right: 5px;
+    width: 7px;
+    height: 16px;
+}
+
+.botonRojoSale {
+    border-radius: 45px;
+    background-color: #660000;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    margin-right: 25px;
+    width: 72px;
+    height: 20px;
+}
+
+.botonVerde {
+    border-radius: 45px;
+    background-color: #006400;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    margin-right: 25px;
+    width: 72px;
+    height: 20px;
+}
+
+span {
+    display: inline-block;
+    line-height: normal;
+}
+
+div.scrollmenu {
+    background-color: #3b5547;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+    div.scrollmenu a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 9px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 12px;
+        background-color: #3b5547;
+    }
+
+        div.scrollmenu a:hover {
+            background-color: green;
+        }
+
+.cabeceraLogin {
+    width: 400px;
+    margin: 0px auto 0px auto;
+    margin-top: 5%;
+    /*border : 1px  outset rgb(255,5,5);*/
+    height: 60px;
+    padding: 1px 2px 2px 2px; /* Arriba   Derecha   Abajo  Izquierda */
+    background-color: white;
+}
+
+ 
+
+.PanelLogo {
+    background: url(../imagenes/LogoKYfirma.jpg) no-repeat;
+    /*width: 155px;*/
+    width:50%;
+    height: 47px;
+    margin-top: 1px;
+    float: left;
+}
+
+#PanelMenu {
+    height: 42px;
+    width: 100%;
+    background: #71C167;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#3b5547), to(#DDF));
+    background: -moz-linear-gradient(#3b5547, #DDF);
+    background: linear-gradient(#3b5547, #DDF);
+    padding-top: 1px;
+    /*background-color: #3b5547; 
+     overflow: auto;*/
+}
+
+
+#panelIzquierdo {
+    width: 130px;
+    height: 98%;
+    margin-left: 2px;
+    float: left;
+    font-size: 14px;
+    background: white;
+    /*background:#3b5547;*/
+    margin-top: 2px;
+}
+
+#panelDerecho {
+    width: 200px;
+    height: 100%;
+    float: right;
+    margin-top: 2px;
+    margin-right: 14px;
+    background: url(../imagenes/fondoPanelDerecho.png) repeat;
+}
+
+#panelCentral {
+    width: 100%;
+    height: 100%;
+    padding: 6px,4px,4px,6px;
+    background: white;
+    margin-top: 3px;
+}
+
+
+
+
+#login-titulo {
+    margin-top: 65px;
+    width: 100%;
+    height: 30%;
+    font-weight: bold;
+    /*color: #FFF;*/
+    text-shadow: 4px 4px 8px rgb(178, 178, 237);
+    color: #3b5547;
+    font-size: 16px;
+    text-align: center;
+}
+
+#login-form-contenido {
+    /*position: absolute;*/
+    margin-top: 55px;
+    margin-left: 15px;
+}
+
+.labelBox {
+    width: 150px;
+    height: 24px;
+    font-weight: bold;
+    color: white;
+    padding: 5px;
+}
+
+.lblLabel {
+    color: black;
+    font-weight: bolder;
+    font-size: 10px;
+}
+
+.lblLabelMenu {
+    color: white;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+
+.lblLabelCliente {
+    color: #3b5547;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+}
+
+.lblContenidoBorder {
+    color: black;
+    font-weight: normal;
+    font-size: 10px;
+    /*box-shadow: inset 0 0 0 2px #3b5547;*/
+}
+
+.cboAnno {
+    color: #0a380a;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.cboMes{
+
+    color: #0a380a;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+
+
+.lblContenido {
+    color: #0a380a;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.elementoOculto {
+    display: none;
+    padding: 15px;
+}
+
+.titH24 {
+    font-size: 14px;
+    font-weight: bolder;
+    
+    /* #71C167  #53B348 #A4C541 */
+    text-shadow: 1px 1px #666;
+   
+    /*color: black;*/
+    
+}
+
+.titH22 {
+    font-size: 18px;
+    font-weight: bolder;
+    /* #71C167  #53B348 #A4C541 */
+    text-shadow: 1px 1px #666;
+    color: #3b5547;
+    text-align: center;
+}
+
+
+.titH23 {
+    font-size: 12px;
+    font-weight: bolder;
+    /* #71C167  #53B348 #A4C541 */
+    text-shadow: 1px 1px #666;
+    color: #3b5547;
+    text-align: center;
+}
+
+.titH22old {
+    font-size: 18px;
+    font-weight: bolder;
+    /* #71C167  #53B348 #A4C541 */
+    text-shadow: 1px 1px #666;
+    color: #3b5547;
+    text-align: center;
+}
+
+.blink_text {
+    animation: 1s blinker linear infinite;
+    -webkit-animation: 1s blinker linear infinite;
+    -moz-animation: 1s blinker linear infinite;
+    color: red;
+}
+
+@-moz-keyframes blinker {
+    0% {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.0;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+
+@-webkit-keyframes blinker {
+    0% {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.0;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+
+@keyframes blinker {
+    0% {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.0;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+
+.celdaBorde {
+    border: green 1px solid;
+    /*margin: 1px;*/
+    padding: 1px;
+    color: #3b5547;
+    font-weight: normal;
+    font-size: 10px;
+}
+
+.celdaNumero {
+    border: green 1px solid;
+     height: 10px;
+    text-align: right;
+    padding-right: 2px;
+    color: #3b5547;
+    font-weight: normal;
+    font-size: 10px;
+}
+
+.celdaNumeroBlanco {
+    border: green 1px solid;
+     height: 10px;
+    text-align: right;
+    padding-right: 2px;
+    color: white;
+    font-weight: normal;
+    font-size: 10px;
+}
+
+.celdaNumeroBlancoDiferente {
+    border: green 1px solid;
+     height: 10px;
+    text-align: right;
+    padding-right: 2px;
+    background-color: #494646;
+    color: white;
+    font-weight: normal;
+    font-size: 10px;
+}
+
+
+
+.celdaNumeroDiferente{
+    border: green 1px solid;
+     height: 10px;
+    text-align: right;
+    padding-right: 2px;
+    background-color: #d7f1a7;
+    color: black;
+    font-weight: normal;
+    font-size: 10px;
+}
+
+
+.celdaTextoBlanco {
+    border: green 1px solid;    
+     height: 10px;
+    text-align: left;
+    padding-left: 2px;
+   color: white;
+     /*color: red;*/
+    font-size: 10px;
+    font-weight: normal;    
+}
+
+.celdaTexto {
+    border: green 1px solid;    
+     height: 10px;
+    text-align: left;
+    padding-left: 2px;
+   color: #3b5547;
+     /*color: red;*/
+    font-size: 10px;
+    font-weight: normal;    
+}
+.celdaTextoHijo {
+    border: green 1px solid;    
+     height: 10px;
+    text-align: left;
+    padding-left: 2px;
+   color: #3b5547;
+     /*color: red;*/
+    font-size: 10px;
+    font-weight: normal;    
+}
+
+.celdaTitulo {
+    border: green 1px solid;
+  
+    /*margin: 1px;*/
+    padding: 6px;
+    background-color: black;
+    color: white; 
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.celdaTituloFoot {
+    border: green 1px solid;
+    /*margin: 1px;*/
+    padding: 0px;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.TextoNegro {
+    color: #000000;
+    FONT-SIZE: 11px;
+    font-family: Verdana,tahoma,Arial;
+    font-size: 10px;
+    FONT-WEIGHT: normal;
+}
+
+.TextoNegroBold {
+    color: #000000;
+    FONT-SIZE: 11px;
+    font-family: Verdana,tahoma,Arial;
+    font-size: 10px;
+    FONT-WEIGHT: bold;
+}
+
+
+.TextoNegro9 {
+    color: #000000;
+    FONT-SIZE: 9px;
+    font-family: sans-serif,Arial, Helvetica;
+    font-size: 9px;
+    border: 1px solid white;
+}
+
+.SubTitulo4 {
+    color: #333333;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 14px;
+    FONT-FAMILY: sans-serif,Arial, Helvetica;
+    border: 1px solid black;
+}
+
+
+/*#izquierda { width:162px;  border:1px solid black; } 
+#derecha   {  width:210px;  border:1px solid black; }
+#centro { width:328px;  margin-left: 160px;  border:1px solid black;}*/
+.TituloCentrado {
+    color: #000000;
+    FONT-SIZE: 11px;
+    font-family: Verdana,tahoma,Arial;
+    font-size: 10px;
+    FONT-WEIGHT: bold;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.izquierda {
+    width: 120px;
+    height: 115px;
+    float: left;
+}
+
+.centro {
+    width: 400px;
+    height: 115px;
+    margin-left: 122px;
+    color: #000000;
+    FONT-SIZE: 11px;
+    font-family: Verdana,tahoma,Arial;
+    text-align: center;
+}
+
+.derecha {
+    width: 200px;
+    height: 115px;
+    border: solid 2px black;
+    margin-left: 10PX;
+    float: right;
+    color: #333333;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 14px;
+    text-align: center;
+    FONT-FAMILY: sans-serif,Arial, Helvetica;
+}
+
+ 
+  
+tr {
+    height: 11px;
+}
+
+.overlay {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #111111;
+    z-index: 1001;
+    opacity: .75;
+    -moz-opacity: 0.85;
+    filter: alpha(opacity=85);
+}
+
+.labelMensaje {
+    font-size: 12px;
+    font-weight: bolder;
+    line-height: 2;
+}
+
+.mensajeHead {
+    align-content: center;
+    width: 100%;
+    height: 8%;
+    font-size: 14px;
+    font-weight: bolder;
+    text-shadow: 2px 3px #999;
+    color: white;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.fondoMensaje {
+    display: none;
+    position: absolute;
+    top: 25%;
+    left: 38%;
+    width: 300px;
+    height: 160px;
+    line-height: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    border: 4px rgb(200,255,200);
+    padding: 16px;
+        	background-color:#040000;
+   /*  background: transparent fixed url('../imagenes/fondoMensaje.png') repeat;  */
+    z-index: 1002;
+    border: 1px solid #000000;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+.fondoMensaje2 {
+    display: none;
+    position: absolute;
+    z-index: 9;
+     
+    width: 620px;
+    height: 520px;
+      margin: 30px auto 0 auto;
+    line-height: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    border: 4px rgb(200,255,200);
+    padding: 10px;
+    	background-color:#666;
+    /*background: transparent fixed url('../imagenes/fondoMensaje.png') repeat;*/
+    z-index: 1002;
+    border: 1px solid #000000;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    overflow:hidden;
+    resize:both;
+}
+
+
+#cabMove {
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  height: 10px;
+  margin-bottom:6px;
+  background: linear-gradient(to bottom, #f3c5bd 0%,#e86c57 50%,#ea2803 51%,#ff6600 75%,#c72200 100%);
+  color: #fff;
+}
+#cabMove:hover {
+  padding: 10px;
+  cursor: move; 
+  height: 10px;
+  background: linear-gradient(to top, #f3c5bd 0%,#e86c57 50%,#ea2803 51%,#ff6600 75%,#c72200 100%);
+  color: #fff;
+}
+ 
+#cabMove:active {
+  padding: 8px;
+  cursor: move;   
+  height: 10px;
+ background: linear-gradient(to bottom, #f3c5bd 0%,#e86c57 50%,#ea2803 51%,#ff6600 75%,#c72200 100%);
+  color: #fff;
+} 
