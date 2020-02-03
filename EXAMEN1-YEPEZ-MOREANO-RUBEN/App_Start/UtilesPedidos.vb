@@ -2,9 +2,11 @@
 Imports System.Web.Mvc
 Imports System.Web.Helpers
 Public Class UtilesPedidos
-    Public Function ListaPedidos(ByVal Anno As Integer)
+    Public Function ListaPedidosString(ByVal Anno As Integer, ByVal Servidor As String, ByVal User As String, ByVal Pass As String) As String
         Dim miBas As Conexion = New Conexion
-        Dim miCon As SqlConnection = miBas.cargaConex()
+
+
+        Dim miCon As SqlConnection = miBas.cargaConex(Servidor, User, Pass)
 
         Dim commandText As String = "select a.OrderId Orden, convert(varchar(10), a.orderdate,102) Fecha,"
         commandText = commandText + "  upper(b.CompanyName) RazonSocial, "
@@ -18,33 +20,35 @@ Public Class UtilesPedidos
         transaction = miCon.BeginTransaction("listaPedidos")
         command.Transaction = transaction
 
-
-        Dim lista As New List(Of PedidosPendientes)
+        Dim nuevaFila As String = "<thead><th class='celdaTitulo' style='width:18px'>ORDEN</th>"
+        nuevaFila = nuevaFila + "<th class='celdaTitulo' style='width: 32px'>FECHA</th>"
+        nuevaFila = nuevaFila + "<th class='celdaTitulo' style='width: 32px'>RAZON SOCIAL</th>"
+        nuevaFila = nuevaFila + "<th class='celdaTitulo' style='width: 32px'>TELEFONO</th>"
+        nuevaFila = nuevaFila + "</tr></thead>"
         Dim rsReader As SqlDataReader = command.ExecuteReader
-
+        Dim i As Integer = 0
         While rsReader.Read
-            Dim item As New PedidosPendientes
 
-            item.Orden = CStr(rsReader("Orden"))
-
-            item.Fecha = CStr(rsReader("Fecha"))
-            item.RazonSocial = CStr(rsReader("RazonSocial"))
-            item.Telefono = CStr(rsReader("Telefono"))
-
-            lista.Add(item)
+            If (i = 0) Then
+                nuevaFila = nuevaFila + "<tbody><tr><td id='idOrden' class='celdaTexto'>" + CStr(rsReader("Orden")) + "</td>"
+            Else
+                nuevaFila = nuevaFila + "<tr><td id='idOrden' class='celdaTexto'>" + CStr(rsReader("Orden")) + "</td>"
+            End If
+            nuevaFila = nuevaFila + "<td id='idFecha' class='celdaTexto'>" + CStr(rsReader("Fecha")) + "</td>"
+            nuevaFila = nuevaFila + "<td id='idRazon' class='celdaTexto'>" + CStr(rsReader("RazonSocial")) + "</td>"
+            nuevaFila = nuevaFila + "<td id='idTel' class='celdaTexto'>" + CStr(rsReader("Telefono")) + "</td>"
+            i = i + 1
         End While
-
+        nuevaFila = nuevaFila + " </tbody>"
         rsReader.Close()
         transaction.Commit()
         command.Dispose()
         miCon.Close()
-        Return (lista)
-
+        Return (nuevaFila)
     End Function
-
-    Public Function AnnosEnConsulta()
+    Public Function AnnosEnConsulta(ByVal Servidor As String, ByVal User As String, ByVal Pass As String) As String
         Dim miBas As Conexion = New Conexion
-        Dim miCon As SqlConnection = miBas.cargaConex()
+        Dim miCon As SqlConnection = miBas.cargaConex(Servidor, User, Pass)
 
         Dim commandText As String = "select year(orderdate) Valor, year(orderdate) Anno "
         commandText = commandText + "from orders group by year(orderdate) order by year(OrderDate) desc"
@@ -55,23 +59,25 @@ Public Class UtilesPedidos
 
         transaction = miCon.BeginTransaction("AnnosEnConsulta")
         command.Transaction = transaction
-        Dim lista As New List(Of modAnnoConsulta)
+        Dim miFila As String = ""
         Dim rsReader As SqlDataReader = command.ExecuteReader
         While rsReader.Read
-            Dim item As New modAnnoConsulta
-            item.Valor = CStr(rsReader("Valor"))
-            item.Anno = CStr(rsReader("Anno"))
-            lista.Add(item)
+            If (i = 0) Then
+                miFila = "<option value=" + CStr(rsReader("Valor")) + " selected>" + CStr(rsReader("Anno")) + "</option>"
+            Else
+                miFila = miFila + "<option value=" + CStr(rsReader("Valor")) + ">" + CStr(rsReader("Anno")) + "</option>"
+            End If
+            i = i + 1
         End While
         rsReader.Close()
         transaction.Commit()
         command.Dispose()
         miCon.Close()
-        Return (lista)
+        Return (miFila)
     End Function
-    Public Function MaximoAnno() As Integer
+    Public Function MaximoAnno(ByVal Servidor As String, ByVal User As String, ByVal Pass As String) As Integer
         Dim miBas As Conexion = New Conexion
-        Dim miCon As SqlConnection = miBas.cargaConex()
+        Dim miCon As SqlConnection = miBas.cargaConex(Servidor, User, Pass)
 
         Dim commandText As String = "select max(year(orderdate))  Anno "
         commandText = commandText + "from orders "
@@ -94,9 +100,9 @@ Public Class UtilesPedidos
         miCon.Close()
         Return (i)
     End Function
-    Public Function DetallePedido(ByVal Orden As String, ByRef total As Double)
+    Public Function DetallePedido(ByVal Orden As String, ByVal Servidor As String, ByVal User As String, ByVal Pass As String) As String
         Dim miBas As Conexion = New Conexion
-        Dim miCon As SqlConnection = miBas.cargaConex()
+        Dim miCon As SqlConnection = miBas.cargaConex(Servidor, User, Pass)
 
         Dim commandText As String = "SELECT a.ProductID Codigo,upper( b.ProductName) Descripcion, a.Quantity Cantidad, a.UnitPrice,  a.Quantity*a.UnitPrice Total "
         commandText = commandText + "  FROM  [Order Details] a "
@@ -108,57 +114,75 @@ Public Class UtilesPedidos
         command.Transaction = transaction
 
         Dim miNumero As Double = 0
-        total = 0
-        Dim lista As New List(Of modDetallePedido)
+
+        Dim nuevaFila As String = "<thead><tr><th class='celdaTitulo' style='width:18px;'>CODIGO</th>"
+
+        nuevaFila = nuevaFila + "<th class='celdaTitulo' style='width:18px;'>DESCRIPCION</th>"
+        nuevaFila = nuevaFila + "<th class='celdaTitulo' style='width: 32px;'>CANTIDAD</th>"
+        nuevaFila = nuevaFila + "<th class='celdaTitulo' style='width: 32px;'>PRECIO</th>"
+        nuevaFila = nuevaFila + "<th class='celdaTitulo' style='width: 32px;'>TOTAL</th>"
         Dim rsReader As SqlDataReader = command.ExecuteReader
-
+        Dim i As Integer = 0
+        Dim Total As Double = 0
         While rsReader.Read
-            Dim item As New modDetallePedido
-
-            item.Codigo = CStr(rsReader("Codigo"))
-            item.Descripcion = CStr(rsReader("Descripcion"))
-            miNumero = CDbl(rsReader("UnitPrice"))
-            If miNumero = 0 Then
-                item.UnitPrice = ""
+            If (i = 0) Then
+                nuevaFila = nuevaFila + "<tbody><tr><td id='miItem' class='celdaTextoBlanco'>" + CStr(rsReader("Codigo")) + "</td>"
             Else
-                item.UnitPrice = FormateaNumero(miNumero, 12)
+                nuevaFila = nuevaFila + "<tr><td id='miItem' class='celdaTextoBlanco'>" + CStr(rsReader("Codigo")) + "</td>"
             End If
-
+            nuevaFila = nuevaFila + "<td id='miItem' class='celdaTextoBlanco'>" + CStr(rsReader("Descripcion")) + "</td>"
             miNumero = CDbl(rsReader("Cantidad"))
             If miNumero = 0 Then
-                item.Cantidad = ""
+                nuevaFila = nuevaFila + "<td id='miItem' class='celdaTextoBlanco'> </td>"
             Else
-                item.Cantidad = FormateaNumero(miNumero, 12)
+                nuevaFila = nuevaFila + "<td id='miItem' class='celdaTextoBlanco'>" + FormateaNumero(miNumero, 12) + "</td>"
+            End If
+
+            miNumero = CDbl(rsReader("UnitPrice"))
+            If miNumero = 0 Then
+                nuevaFila = nuevaFila + "<td id='miItem' class='celdaTextoBlanco'> </td>"
+            Else
+                nuevaFila = nuevaFila + "<td id='miItem' class='celdaTextoBlanco'>" + FormateaNumero(miNumero, 12) + "</td>"
             End If
 
             miNumero = CDbl(rsReader("Total"))
-            total = total + miNumero
             If miNumero = 0 Then
-                item.Total = ""
+                nuevaFila = nuevaFila + "<td id='miItem' class='celdaTextoBlanco'> </td>"
             Else
-                item.Total = FormateaNumero(miNumero, 12)
+                nuevaFila = nuevaFila + "<td id='miItem' class='celdaNumeroBlanco'>" + FormateaNumero(miNumero, 12) + "</td>"
             End If
 
-            lista.Add(item)
-        End While
+            Total = Total + miNumero
 
+            i = i + 1
+        End While
+        nuevaFila = nuevaFila + " </tbody>"
+        nuevaFila = nuevaFila + "<th class='celdaTextoBlanco'></th>"
+        nuevaFila = nuevaFila + "<th class='celdaTextoBlanco'></th>"
+        nuevaFila = nuevaFila + "<th class='celdaTextoBlanco'></th>"
+        nuevaFila = nuevaFila + "<th class='celdaNumeroBlanco'>TOTAL--</th>"
+        nuevaFila = nuevaFila + "<th class='celdaNumeroBlanco'>" + FormateaNumero(Total, 12) + "</th>"
+        nuevaFila = nuevaFila + "</tr></tfoot>"
         rsReader.Close()
         transaction.Commit()
         command.Dispose()
         miCon.Close()
-        Return (lista)
+        Return (nuevaFila)
 
     End Function
 
-    Public Function grabaPedido(ByVal Orden As String, ByVal Fecha As String, ByVal Comentario As String, ByVal Graba As String) As Integer
+    Public Function grabaPedido(ByVal Orden As String, ByVal Fecha As String, ByVal Comentario As String, ByVal Graba As String, ByVal Servidor As String, ByVal User As String, ByVal Pass As String) As Integer
         Dim i As Integer = 0
         If (Graba = "S") Then
             i = 1
             Dim miBas As Conexion = New Conexion
-            Dim miCon As SqlConnection = miBas.cargaConex()
-
+            Dim miCon As SqlConnection = miBas.cargaConex(Servidor, User, Pass)
+            Dim ComentarioGrabar As String = Left(Comentario, 60)
+            ComentarioGrabar = ComentarioGrabar.ToUpper
             Dim commandText As String = "Update orders "
-            commandText = commandText + "  set ShipVia=2 "
+            commandText = commandText + "set ShipVia=2 , "
+            commandText = commandText + "ShipAddress='" + ComentarioGrabar + "', "
+            commandText = commandText + "ShippedDate= convert(datetime, '" + Fecha + "',102)"
             commandText = commandText + "  where  OrderID = '" + Orden + "'"
 
             Dim command As New SqlCommand(commandText, miCon)
@@ -166,14 +190,14 @@ Public Class UtilesPedidos
 
             transaction = miCon.BeginTransaction("grabaPedido")
             command.Transaction = transaction
-             
+
             command.ExecuteNonQuery()
-             
+
             transaction.Commit()
             command.Dispose()
             miCon.Close()
         End If
-       
+
 
         Return i
     End Function
